@@ -88,8 +88,8 @@ function calcularPreco(){
 
   /* multiplicadores actualizados */
   const mult = (tipo==='colecao')
-    ? (comp==='simples'?2.3: comp==='media'?2.8: 3.3)
-    : (comp==='simples'?2.5: comp==='media'?3.0: 3.5);
+    ? (comp==='simples'?2.4: comp==='media'?2.8: 3.4)
+    : (comp==='simples'?2.55: comp==='media'?3.05: 3.55);
 
   const dens= area<=0.40?4.8: area<=0.80?4.4:4.0;
   const peso= area*dens;
