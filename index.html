@@ -16,79 +16,29 @@
       --clr-text: #2d3748;
       --radius: 8px;
     }
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: var(--clr-bg);
-      color: var(--clr-text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
+      margin: 0; font-family: "Inter", sans-serif;
+      background: var(--clr-bg); color: var(--clr-text);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 2rem;
     }
     .card {
-      background: #fff;
-      width: 100%;
-      max-width: 560px;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      background: #fff; width: 100%; max-width: 580px;
+      border-radius: var(--radius); box-shadow: 0 10px 25px rgba(0,0,0,.05);
       padding: 2rem 2.5rem;
     }
-    h1 {
-      margin: 0 0 1.25rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 600;
+    h1 { margin: 0 0 1.25rem; text-align: center; font-size: 1.5rem; font-weight: 600; }
+    label { font-weight: 600; margin-bottom: .35rem; display: block; }
+    input, select, button {
+      width: 100%; padding: .6rem .75rem; font-size: 1rem;
+      border: 1px solid var(--clr-border); border-radius: var(--radius);
     }
-    label {
-      font-weight: 600;
-      margin-bottom: 0.35rem;
-      display: block;
-    }
-    input,
-    select,
-    button {
-      width: 100%;
-      padding: 0.6rem 0.75rem;
-      font-size: 1rem;
-      border: 1px solid var(--clr-border);
-      border-radius: var(--radius);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-    .btn {
-      background: var(--clr-primary);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 1.25rem;
-    }
-    .btn:hover {
-      background: var(--clr-secondary);
-    }
-    .result {
-      margin-top: 2rem;
-      padding: 1.25rem;
-      background: #f7fafc;
-      border: 1px solid var(--clr-border);
-      border-radius: var(--radius);
-    }
-    .result p {
-      margin: 0.5rem 0;
-    }
-    .highlight {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--clr-primary);
-    }
+    .grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .btn { background: var(--clr-primary); color:#fff; border:0; cursor:pointer; transition: background .2s; margin-top:1.25rem; }
+    .btn:hover { background: var(--clr-secondary); }
+    .result { margin-top:2rem; padding:1.25rem; background:#f7fafc; border:1px solid var(--clr-border); border-radius:var(--radius); }
+    .highlight { font-size:1.25rem; font-weight:600; color:var(--clr-primary); }
   </style>
 </head>
 <body>
@@ -122,85 +72,70 @@
     <label>Desconto (€)</label>
     <input type="number" id="desconto" placeholder="Ex: 20" />
 
+    <label style="display:flex;align-items:center;gap:.5rem;margin-top:1rem">
+      <input type="checkbox" id="aplicaIva" checked /> Aplicar IVA (23 %)
+    </label>
+
     <button class="btn" onclick="calcularPreco()">Calcular Preço</button>
 
-    <div class="result" id="resultado" style="display: none"></div>
+    <div class="result" id="resultado" style="display:none"></div>
   </div>
 
- <script>
+<script>
 /* ---------- custos fixos ---------- */
 const custoMateriaisM2 = 59.14;
 const custoMaoObraM2   = 70.57;
-const custoDesign      = 7.0;   // só se “personalizado”
+const custoDesign      = 7.0;
 const custoEmbalagem   = 0.90;
 const IVA              = 0.23;
 
-/* ---------- tabela de portes CTT (nacional 2025) ---------- */
+/* ---------- tabela portes CTT ---------- */
 const cttTabela = [
-  { maxKg:  0.5, preco:  3.6 },
-  { maxKg:    2, preco:  5.3 },
-  { maxKg:    5, preco:  7.9 },
-  { maxKg:   10, preco: 10.7 },
-  { maxKg:   20, preco: 18.5 }, // acrescentado
-  { maxKg:   30, preco: 24.0 }, // acrescentado
+  { maxKg: 0.5, preco: 3.6 },
+  { maxKg:   2, preco: 5.3 },
+  { maxKg:   5, preco: 7.9 },
+  { maxKg:  10, preco:10.7 },
+  { maxKg:  20, preco:18.5 },
+  { maxKg:  30, preco:24.0 },
 ];
-function calcularEnvioCTT(pesoKg) {
-  const faixa = cttTabela.find(t => pesoKg <= t.maxKg) || cttTabela.at(-1);
-  return faixa.preco;
-}
+function calcularEnvioCTT(kg){return (cttTabela.find(t=>kg<=t.maxKg)||cttTabela.at(-1)).preco;}
 
-/* ---------- função principal ---------- */
-function calcularPreco() {
-  const largura      = parseFloat(document.getElementById('largura').value);
-  const altura       = parseFloat(document.getElementById('altura').value);
-  const tipo         = document.getElementById('tipo').value;
-  const complexidade = document.getElementById('complexidade').value;
-  const descontoVal  = parseFloat(document.getElementById('desconto').value) || 0;
+function calcularPreco(){
+  const largura = parseFloat(document.getElementById('largura').value);
+  const altura  = parseFloat(document.getElementById('altura').value);
+  const tipo    = document.getElementById('tipo').value;
+  const comp    = document.getElementById('complexidade').value;
+  const desc    = parseFloat(document.getElementById('desconto').value)||0;
+  const aplicaIVA = document.getElementById('aplicaIva').checked;
+  if(!largura||!altura){alert('Introduz as duas medidas.');return;}
 
-  if (!largura || !altura) {
-    alert('Introduz as duas medidas.');
-    return;
-  }
+  const area   = (largura/100)*(altura/100);
+  const custo  = area*custoMateriaisM2 + area*custoMaoObraM2 + custoEmbalagem + (tipo==='personalizado'?custoDesign:0);
+  const mult   = (tipo==='colecao')
+    ? (comp==='simples'?2.5:comp==='media'?3:3.5)
+    : (comp==='simples'?2.75:comp==='media'?3.25:3.75);
 
-  /* 1. Área e custos reais */
-  const areaM2 = (largura / 100) * (altura / 100);
-  const custoTotal =
-        areaM2 * custoMateriaisM2 +
-        areaM2 * custoMaoObraM2 +
-        (tipo === 'personalizado' ? custoDesign : 0) +
-        custoEmbalagem;
+  const dens   = area<=0.40?4.8:area<=0.80?4.4:4.0;
+  const pesoKg = area*dens;
+  const portes = calcularEnvioCTT(pesoKg);
 
-  /* 2. Multiplicador */
-  const mult = (tipo === 'colecao')
-    ? (complexidade === 'simples' ? 2.5 : complexidade === 'media' ? 3   : 3.5)
-    : (complexidade === 'simples' ? 2.75: complexidade === 'media' ? 3.25: 3.75);
+  const base   = custo*mult;
+  const valorIVA = aplicaIVA? base*IVA : 0;
+  const total  = base + valorIVA + portes - desc;
+  const lucro  = total - custo;
+  const margem = (lucro/total)*100;
 
-  /* 3. Peso estimado (densidade por faixa) */
-  const densidade =
-        areaM2 <= 0.40 ? 4.8 :
-        areaM2 <= 0.80 ? 4.4 : 4.0;      // kg por m²
-  const pesoKg = areaM2 * densidade;
-  const envio  = calcularEnvioCTT(pesoKg);
-
-  /* 4. Preço, IVA e lucro */
-  const precoSemIVA  = custoTotal * mult;
-  const valorIVA     = precoSemIVA * IVA;
-  const precoFinal   = precoSemIVA + valorIVA + envio - descontoVal;
-  const lucro        = precoFinal - custoTotal;
-  const margemLucro  = (lucro / precoFinal) * 100;
-
-  /* 5. Mostrar resultado */
-  const out = document.getElementById('resultado');
-  out.style.display = 'block';
-  out.innerHTML = `
-    <p><strong>Área:</strong> ${areaM2.toFixed(2)} m²</p>
-    <p><strong>Peso estimado:</strong> ${pesoKg.toFixed(2)} kg</p>
-    <p><strong>Custo total:</strong> €${custoTotal.toFixed(2)}</p>
-    <p><strong>Preço s/ IVA:</strong> €${precoSemIVA.toFixed(2)}</p>
-    <p><strong>IVA (23 %):</strong> €${valorIVA.toFixed(2)}</p>
-    <p><strong>Envio CTT:</strong> €${envio.toFixed(2)}</p>
-    <p class="highlight"><strong>Preço final:</strong> €${precoFinal.toFixed(2)}</p>
-    <p><strong>Lucro:</strong> €${lucro.toFixed(2)} (${margemLucro.toFixed(1)} %)</p>`;
+  const res=document.getElementById('resultado');
+  res.style.display='block';
+  res.innerHTML=`
+    <p><strong>Área:</strong> ${area.toFixed(2)} m²</p>
+    <p><strong>Peso:</strong> ${pesoKg.toFixed(2)} kg</p>
+    <p><strong>Custo total:</strong> €${custo.toFixed(2)}</p>
+    <p><strong>Preço s/ IVA:</strong> €${base.toFixed(2)}</p>
+    ${aplicaIVA?`<p><strong>IVA (23 %):</strong> €${valorIVA.toFixed(2)}</p>`:`<p><em>Isento de IVA — Art. 53.º CIVA</em></p>`}
+    <p><strong>Envio:</strong> €${portes.toFixed(2)}</p>
+    <p class="highlight"><strong>Preço final:</strong> €${total.toFixed(2)}</p>
+    <p><strong>Lucro:</strong> €${lucro.toFixed(2)} (${margem.toFixed(1)} %)</p>`;
 }
 </script>
 </body>
