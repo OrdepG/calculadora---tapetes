@@ -1,109 +1,209 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Preços – Tapetes Kumo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root { --clr-bg:#fafafa; --clr-primary:#2f855a; --clr-secondary:#68d391; --clr-border:#e2e8f0; --clr-text:#2d3748; --radius:8px; }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:"Inter",sans-serif;background:var(--clr-bg);color:var(--clr-text);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
-    .card{background:#fff;width:100%;max-width:580px;border-radius:var(--radius);box-shadow:0 10px 25px rgba(0,0,0,.05);padding:2rem 2.5rem}
-    h1{margin:0 0 1.25rem;text-align:center;font-size:1.5rem;font-weight:600}
-    label{font-weight:600;margin-bottom:.35rem;display:block}
-    input,select,button{width:100%;padding:.6rem .75rem;font-size:1rem;border:1px solid var(--clr-border);border-radius:var(--radius)}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-    .btn{background:var(--clr-primary);color:#fff;border:0;cursor:pointer;transition:background .2s;margin-top:1.25rem}
-    .btn:hover{background:var(--clr-secondary)}
-    .result{margin-top:2rem;padding:1.25rem;background:#f7fafc;border:1px solid var(--clr-border);border-radius:var(--radius)}
-    .highlight{font-size:1.25rem;font-weight:600;color:var(--clr-primary)}
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Preços – Tapetes Kumo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+         :root {
+            --clr-bg: #fafafa;
+            --clr-primary: #2f855a;
+            --clr-secondary: #68d391;
+            --clr-border: #e2e8f0;
+            --clr-text: #2d3748;
+            --radius: 8px;
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: var(--clr-bg);
+            color: var(--clr-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem
+        }
+        
+        .card {
+            background: #fff;
+            width: 100%;
+            max-width: 580px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
+            padding: 2rem 2.5rem
+        }
+        
+        h1 {
+            margin: 0 0 1.25rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: .35rem;
+            display: block
+        }
+        
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: .6rem .75rem;
+            font-size: 1rem;
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius)
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem
+        }
+        
+        .btn {
+            background: var(--clr-primary);
+            color: #fff;
+            border: 0;
+            cursor: pointer;
+            transition: background .2s;
+            margin-top: 1.25rem
+        }
+        
+        .btn:hover {
+            background: var(--clr-secondary)
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            background: #f7fafc;
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius)
+        }
+        
+        .highlight {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--clr-primary)
+        }
+    </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>Calculadora de Preços – Tapetes Kumo</h1>
+    <div class="card">
+        <h1>Calculadora de Preços – Tapetes Kumo</h1>
 
-    <div class="grid">
-      <div>
-        <label>Largura (cm)</label>
-        <input type="number" id="largura" placeholder="Ex: 100" />
-      </div>
-      <div>
-        <label>Altura (cm)</label>
-        <input type="number" id="altura" placeholder="Ex: 75" />
-      </div>
-    </div>
+        <div class="grid">
+            <div>
+                <label>Largura (cm)</label>
+                <input type="number" id="largura" placeholder="Ex: 100" />
+            </div>
+            <div>
+                <label>Altura (cm)</label>
+                <input type="number" id="altura" placeholder="Ex: 75" />
+            </div>
+        </div>
 
-    <label>Tipo de Tapete</label>
-    <select id="tipo">
+        <label>Tipo de Tapete</label>
+        <select id="tipo">
       <option value="colecao">Coleção</option>
       <option value="personalizado">Personalizado</option>
     </select>
 
-    <label>Complexidade</label>
-    <select id="complexidade">
+        <label>Complexidade</label>
+        <select id="complexidade">
       <option value="simples">Simples</option>
       <option value="media">Média</option>
       <option value="complexa">Complexa</option>
     </select>
 
-    <label>Desconto (€)</label>
-    <input type="number" id="desconto" placeholder="Ex: 20" />
+        <label>Desconto (€)</label>
+        <input type="number" id="desconto" placeholder="Ex: 20" />
 
-    <label style="display:flex;align-items:center;gap:.5rem;margin-top:1rem">
+        <label style="display:flex;align-items:center;gap:.5rem;margin-top:1rem">
       <input type="checkbox" id="aplicaIva" checked /> Aplicar IVA (23 %)
     </label>
 
-    <button class="btn" onclick="calcularPreco()">Calcular Preço</button>
+        <button class="btn" onclick="calcularPreco()">Calcular Preço</button>
 
-    <div class="result" id="resultado" style="display:none"></div>
-  </div>
+        <div class="result" id="resultado" style="display:none"></div>
+    </div>
 
-<script>
-/* ---------- custos fixos ---------- */
-const custoMateriaisM2 = 59.14;
-const custoMaoObraM2   = 70.57;
-const custoDesign      = 7.0;
-const custoEmbalagem   = 0.90;
-const IVA              = 0.23;
+    <script>
+        /* ---------- custos fixos ---------- */
+        const custoMateriaisM2 = 59.14;
+        const custoMaoObraM2 = 70.57;
+        const custoDesign = 7.0;
+        const custoEmbalagem = 0.90;
+        const IVA = 0.23;
 
-/* ---------- portes CTT ---------- */
-const cttTabela=[{maxKg:.5,preco:3.6},{maxKg:2,preco:5.3},{maxKg:5,preco:7.9},{maxKg:10,preco:10.7},{maxKg:20,preco:18.5},{maxKg:30,preco:24}];
-const calcularEnvio=kg=> (cttTabela.find(t=>kg<=t.maxKg)||cttTabela.at(-1)).preco;
+        /* ---------- portes CTT ---------- */
+        const cttTabela = [{
+            maxKg: .5,
+            preco: 3.6
+        }, {
+            maxKg: 2,
+            preco: 5.3
+        }, {
+            maxKg: 5,
+            preco: 7.9
+        }, {
+            maxKg: 10,
+            preco: 10.7
+        }, {
+            maxKg: 20,
+            preco: 18.5
+        }, {
+            maxKg: 30,
+            preco: 24
+        }];
+        const calcularEnvio = kg => (cttTabela.find(t => kg <= t.maxKg) || cttTabela.at(-1)).preco;
 
-function calcularPreco(){
-  const w=parseFloat(document.getElementById('largura').value);
-  const h=parseFloat(document.getElementById('altura').value);
-  const tipo=document.getElementById('tipo').value;
-  const comp=document.getElementById('complexidade').value;
-  const desc=parseFloat(document.getElementById('desconto').value)||0;
-  const aplicaIVA=document.getElementById('aplicaIva').checked;
-  if(!w||!h){alert('Introduz as duas medidas.');return;}
+        function calcularPreco() {
+            const w = parseFloat(document.getElementById('largura').value);
+            const h = parseFloat(document.getElementById('altura').value);
+            const tipo = document.getElementById('tipo').value;
+            const comp = document.getElementById('complexidade').value;
+            const desc = parseFloat(document.getElementById('desconto').value) || 0;
+            const aplicaIVA = document.getElementById('aplicaIva').checked;
+            if (!w || !h) {
+                alert('Introduz as duas medidas.');
+                return;
+            }
 
-  const area=(w/100)*(h/100);
-  const custo= area*custoMateriaisM2 + area*custoMaoObraM2 + custoEmbalagem + (tipo==='personalizado'?custoDesign:0);
+            const area = (w / 100) * (h / 100);
+            const custo = area * custoMateriaisM2 + area * custoMaoObraM2 + custoEmbalagem + (tipo === 'personalizado' ? custoDesign : 0);
 
-  /* multiplicadores actualizados */
-  const mult = (tipo==='colecao')
-    ? (comp==='simples'?2.4: comp==='media'?2.8: 3.4)
-    : (comp==='simples'?2.55: comp==='media'?3.05: 3.55);
+            /* multiplicadores actualizados */
+            const mult = (tipo === 'colecao') ?
+                (comp === 'simples' ? 2.3 : comp === 'media' ? 2.8 : 3.3) :
+                (comp === 'simples' ? 2.5 : comp === 'media' ? 3.0 : 3.5);
 
-  const dens= area<=0.40?4.8: area<=0.80?4.4:4.0;
-  const peso= area*dens;
-  const portes= calcularEnvio(peso);
+            const dens = area <= 0.40 ? 4.8 : area <= 0.80 ? 4.4 : 4.0;
+            const peso = area * dens;
+            const portes = calcularEnvio(peso);
 
-  const base= custo*mult;
-  const iva= aplicaIVA? base*IVA:0;
-  const total= base+iva+portes-desc;
-  const lucro= total-custo;
-  const margem=(lucro/total)*100;
+            const base = custo * mult;
+            const iva = aplicaIVA ? base * IVA : 0;
+            const total = base + iva + portes - desc;
+            const lucro = total - custo;
+            const margem = (lucro / total) * 100;
 
-  const res=document.getElementById('resultado');
-  res.style.display='block';
-  res.innerHTML=`
+            const res = document.getElementById('resultado');
+            res.style.display = 'block';
+            res.innerHTML = `
     <p><strong>Área:</strong> ${area.toFixed(2)} m²</p>
     <p><strong>Peso:</strong> ${peso.toFixed(2)} kg</p>
     <p><strong>Custo total:</strong> €${custo.toFixed(2)}</p>
@@ -113,6 +213,7 @@ function calcularPreco(){
     <p class="highlight"><strong>Preço final:</strong> €${total.toFixed(2)}</p>
     <p><strong>Lucro:</strong> €${lucro.toFixed(2)} (${margem.toFixed(1)} %)</p>`;
 }
-</script>
+    </script>
 </body>
+
 </html>
