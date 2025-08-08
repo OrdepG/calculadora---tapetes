@@ -1,219 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora de Preços – Tapetes Kumo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <style>
-         :root {
-            --clr-bg: #fafafa;
-            --clr-primary: #2f855a;
-            --clr-secondary: #68d391;
-            --clr-border: #e2e8f0;
-            --clr-text: #2d3748;
-            --radius: 8px;
-        }
-        
-        * {
-            box-sizing: border-box
-        }
-        
-        body {
-            margin: 0;
-            font-family: "Inter", sans-serif;
-            background: var(--clr-bg);
-            color: var(--clr-text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 2rem
-        }
-        
-        .card {
-            background: #fff;
-            width: 100%;
-            max-width: 580px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
-            padding: 2rem 2.5rem
-        }
-        
-        h1 {
-            margin: 0 0 1.25rem;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600
-        }
-        
-        label {
-            font-weight: 600;
-            margin-bottom: .35rem;
-            display: block
-        }
-        
-        input,
-        select,
-        button {
-            width: 100%;
-            padding: .6rem .75rem;
-            font-size: 1rem;
-            border: 1px solid var(--clr-border);
-            border-radius: var(--radius)
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem
-        }
-        
-        .btn {
-            background: var(--clr-primary);
-            color: #fff;
-            border: 0;
-            cursor: pointer;
-            transition: background .2s;
-            margin-top: 1.25rem
-        }
-        
-        .btn:hover {
-            background: var(--clr-secondary)
-        }
-        
-        .result {
-            margin-top: 2rem;
-            padding: 1.25rem;
-            background: #f7fafc;
-            border: 1px solid var(--clr-border);
-            border-radius: var(--radius)
-        }
-        
-        .highlight {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--clr-primary)
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Preços – Tapetes Kumo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --clr-bg:#fafafa; --clr-primary:#2f855a; --clr-secondary:#68d391; --clr-border:#e2e8f0; --clr-text:#2d3748; --radius:8px; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Inter",sans-serif;background:var(--clr-bg);color:var(--clr-text);
+         display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+    .card{background:#fff;width:100%;max-width:620px;border-radius:var(--radius);
+          box-shadow:0 10px 25px rgba(0,0,0,.05);padding:2rem 2.5rem}
+    h1{margin:0 0 1.25rem;text-align:center;font-size:1.5rem;font-weight:600}
+    label{font-weight:600;margin-bottom:.35rem;display:block}
+    input,select,button{width:100%;padding:.6rem .75rem;font-size:1rem;border:1px solid var(--clr-border);border-radius:var(--radius)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .btn{background:var(--clr-primary);color:#fff;border:0;cursor:pointer;transition:background .2s;margin-top:1.25rem}
+    .btn:hover{background:var(--clr-secondary)}
+    .result{margin-top:2rem;padding:1.25rem;background:#f7fafc;border:1px solid var(--clr-border);border-radius:var(--radius)}
+    .highlight{font-size:1.25rem;font-weight:600;color:var(--clr-primary)}
+    .muted{color:#4a5568;font-size:.9rem}
+  </style>
 </head>
-
 <body>
-    <div class="card">
-        <h1>Calculadora de Preços – Tapetes Kumo</h1>
+  <div class="card">
+    <h1>Calculadora de Preços – Tapetes Kumo</h1>
 
-        <div class="grid">
-            <div>
-                <label>Largura (cm)</label>
-                <input type="number" id="largura" placeholder="Ex: 100" />
-            </div>
-            <div>
-                <label>Altura (cm)</label>
-                <input type="number" id="altura" placeholder="Ex: 75" />
-            </div>
-        </div>
+    <label>Produto</label>
+    <select id="produto">
+      <option value="tapete">Tapete</option>
+      <option value="vaso">Vaso (revestimento)</option>
+    </select>
 
-        <label>Tipo de Tapete</label>
-        <select id="tipo">
+    <div class="grid" style="margin-top:1rem">
+      <div>
+        <label>Largura (cm) <span class="muted" id="hint-larg">(tapete: largura · vaso: diâmetro)</span></label>
+        <input type="number" id="largura" placeholder="Ex: 100" />
+      </div>
+      <div>
+        <label>Altura (cm)</label>
+        <input type="number" id="altura" placeholder="Ex: 75" />
+      </div>
+    </div>
+
+    <label>Tipo</label>
+    <select id="tipo">
       <option value="colecao">Coleção</option>
       <option value="personalizado">Personalizado</option>
     </select>
 
-        <label>Complexidade</label>
-        <select id="complexidade">
+    <label>Complexidade</label>
+    <select id="complexidade">
       <option value="simples">Simples</option>
       <option value="media">Média</option>
       <option value="complexa">Complexa</option>
     </select>
 
-        <label>Desconto (€)</label>
-        <input type="number" id="desconto" placeholder="Ex: 20" />
+    <label>Desconto (€)</label>
+    <input type="number" id="desconto" placeholder="Ex: 20" />
 
-        <label style="display:flex;align-items:center;gap:.5rem;margin-top:1rem">
+    <label style="display:flex;align-items:center;gap:.5rem;margin-top:1rem">
       <input type="checkbox" id="aplicaIva" checked /> Aplicar IVA (23 %)
     </label>
 
-        <button class="btn" onclick="calcularPreco()">Calcular Preço</button>
+    <button class="btn" onclick="calcularPreco()">Calcular Preço</button>
 
-        <div class="result" id="resultado" style="display:none"></div>
-    </div>
+    <div class="result" id="resultado" style="display:none"></div>
+  </div>
 
-    <script>
-        /* ---------- custos fixos ---------- */
-        const custoMateriaisM2 = 59.14;
-        const custoMaoObraM2 = 70.57;
-        const custoDesign = 7.0;
-        const custoEmbalagem = 0.90;
-        const IVA = 0.23;
+<script>
+/* ---------- parâmetros & custos ---------- */
+const IVA = 0.23;
 
-        /* ---------- portes CTT ---------- */
-        const cttTabela = [{
-            maxKg: .5,
-            preco: 3.6
-        }, {
-            maxKg: 2,
-            preco: 5.3
-        }, {
-            maxKg: 5,
-            preco: 7.9
-        }, {
-            maxKg: 10,
-            preco: 10.7
-        }, {
-            maxKg: 20,
-            preco: 18.5
-        }, {
-            maxKg: 30,
-            preco: 24
-        }];
-        const calcularEnvio = kg => (cttTabela.find(t => kg <= t.maxKg) || cttTabela.at(-1)).preco;
+/* Tapete (por m²) — teus valores */
+const custoMateriaisM2_TAP = 59.14;
+const custoMaoObraM2_TAP   = 70.57;
+const custoEmbalagem_TAP   = 0.90;
+const custoDesign          = 7.0;  // só se personalizado
 
-        function calcularPreco() {
-            const w = parseFloat(document.getElementById('largura').value);
-            const h = parseFloat(document.getElementById('altura').value);
-            const tipo = document.getElementById('tipo').value;
-            const comp = document.getElementById('complexidade').value;
-            const desc = parseFloat(document.getElementById('desconto').value) || 0;
-            const aplicaIVA = document.getElementById('aplicaIva').checked;
-            if (!w || !h) {
-                alert('Introduz as duas medidas.');
-                return;
-            }
+/* Vaso calibrado pelo teu exemplo Ø14×20:
+   Materiais €8.26 e Tempo €16.00 para área ~ π*0.14*0.20 = 0.0880 m²
+   => Materiais ≈ 93.9 €/m² | Tempo ≈ 182 €/m²
+*/
+const custoMateriaisM2_VASO = 93.9;
+const custoMaoObraM2_VASO   = 182.0;
+const custoEmbalagem_VASO   = 0.80;
+const pisoMateriaisVaso     = 8.26;   // mínimos (evitar subestimação em peças pequenas)
+const pisoTempoVaso         = 16.00;
 
-            const area = (w / 100) * (h / 100);
-            const custo = area * custoMateriaisM2 + area * custoMaoObraM2 + custoEmbalagem + (tipo === 'personalizado' ? custoDesign : 0);
+/* Margem de costura/fecho (somamos à largura = circunferência) e desperdício */
+const seamCM = 2;          // 2 cm de sobreposição para coser/colar
+const desperdicioPct = 0.05; // +5%
 
-            /* multiplicadores actualizados */
-            const mult = (tipo === 'colecao') ?
-                (comp === 'simples' ? 2.3 : comp === 'media' ? 2.8 : 3.3) :
-                (comp === 'simples' ? 2.5 : comp === 'media' ? 3.0 : 3.5);
+/* Portes CTT simplificados (nacional) */
+const cttTabela = [
+  { maxKg: 0.5, preco: 3.6 },
+  { maxKg:   2, preco: 5.3 },
+  { maxKg:   5, preco: 7.9 },
+  { maxKg:  10, preco:10.7 },
+  { maxKg:  20, preco:18.5 },
+  { maxKg:  30, preco:24.0 },
+];
+const calcularEnvio = kg => (cttTabela.find(t => kg <= t.maxKg) || cttTabela.at(-1)).preco;
 
-            const dens = area <= 0.40 ? 4.8 : area <= 0.80 ? 4.4 : 4.0;
-            const peso = area * dens;
-            const portes = calcularEnvio(peso);
+/* Densidade (tapete) com transição suave */
+function densidadeTapete(areaM2){
+  if (areaM2 <= 0.40) return 4.8;
+  if (areaM2 <= 1.00) return 4.8 - 0.8 * ((areaM2 - 0.40) / 0.60);
+  return 4.0;
+}
 
-            const base = custo * mult;
-            const iva = aplicaIVA ? base * IVA : 0;
-            const total = base + iva + portes - desc;
-            const lucro = total - custo;
-            const margem = (lucro / total) * 100;
+/* Peso do vaso com base na área efetiva usada (retângulo) */
+function pesoVaso(areaEfetivaM2){
+  return areaEfetivaM2 * 4.4; // densidade média para peça curva
+}
 
-            const res = document.getElementById('resultado');
-            res.style.display = 'block';
-            res.innerHTML = `
-    <p><strong>Área:</strong> ${area.toFixed(2)} m²</p>
-    <p><strong>Peso:</strong> ${peso.toFixed(2)} kg</p>
+/* Multiplicadores (ajustados por ti) */
+function multiplicador(tipo, comp){
+  if (tipo === 'colecao') {
+    return comp === 'simples' ? 2.3 : (comp === 'media' ? 2.8 : 3.3);
+  } else {
+    return comp === 'simples' ? 2.5 : (comp === 'media' ? 3.0 : 3.5);
+  }
+}
+
+/* UI hint dinâmico (rótulo da largura) */
+document.getElementById('produto').addEventListener('change', (e)=>{
+  const hint = document.getElementById('hint-larg');
+  hint.textContent = e.target.value === 'vaso'
+    ? '(tapete: largura · vaso: diâmetro)'
+    : '(tapete: largura · vaso: diâmetro)';
+  // (mantemos o mesmo texto, só para reforçar a leitura)
+});
+
+function calcularPreco(){
+  const produto = document.getElementById('produto').value; // tapete | vaso
+  const w = parseFloat(document.getElementById('largura').value);
+  const h = parseFloat(document.getElementById('altura').value);
+  const tipo = document.getElementById('tipo').value;
+  const comp = document.getElementById('complexidade').value;
+  const desc = parseFloat(document.getElementById('desconto').value) || 0;
+  const aplicaIVA = document.getElementById('aplicaIva').checked;
+
+  if (!w || !h) { alert('Introduz as duas medidas.'); return; }
+
+  let custo, base, iva, total, lucro, margem, peso, portes, areaInfoTxt;
+
+  if (produto === 'tapete') {
+    // --- TAPETE: retângulo (w × h) ---
+    const area = (w/100) * (h/100); // m²
+    const custoMateriais = area * custoMateriaisM2_TAP;
+    const custoMaoObra   = area * custoMaoObraM2_TAP;
+    const custoEmb       = custoEmbalagem_TAP;
+    const custoDes       = (tipo === 'personalizado') ? custoDesign : 0;
+    custo = custoMateriais + custoMaoObra + custoEmb + custoDes;
+
+    const mult = multiplicador(tipo, comp);
+
+    const dens = densidadeTapete(area);
+    peso   = area * dens;
+    portes = calcularEnvio(peso);
+
+    base   = custo * mult;
+    iva    = aplicaIVA ? base * IVA : 0;
+    total  = base + iva + portes - desc;
+    lucro  = total - custo;
+    margem = (lucro / total) * 100;
+
+    areaInfoTxt = `<p><strong>Área (retângulo):</strong> ${area.toFixed(3)} m²</p>`;
+
+  } else {
+    // --- VASO: retângulo para envolver cilindro (circunferência + margem) × altura ---
+    const diamM = w / 100;
+    const altM  = h / 100;
+
+    const seamM = seamCM / 100; // 2 cm em metros
+    const areaRect = (Math.PI * diamM + seamM) * altM; // m²
+    const areaEfetiva = areaRect * (1 + desperdicioPct); // +5% desperdício
+
+    // custos por m² calibrados + pisos mínimos
+    const custoMateriais = Math.max(areaEfetiva * custoMateriaisM2_VASO, pisoMateriaisVaso);
+    const custoTempo     = Math.max(areaEfetiva * custoMaoObraM2_VASO,   pisoTempoVaso);
+    const custoEmb       = custoEmbalagem_VASO;
+    const custoDes       = (tipo === 'personalizado') ? custoDesign : 0;
+
+    custo = custoMateriais + custoTempo + custoEmb + custoDes;
+
+    const mult = multiplicador(tipo, comp);
+
+    peso   = pesoVaso(areaEfetiva);
+    portes = calcularEnvio(peso);
+
+    base   = custo * mult;
+    iva    = aplicaIVA ? base * IVA : 0;
+    total  = base + iva + portes - desc;
+    lucro  = total - custo;
+    margem = (lucro / total) * 100;
+
+    areaInfoTxt = `<p><strong>Área (retângulo p/ vaso):</strong> ${areaEfetiva.toFixed(3)} m² <em>(inclui ${seamCM} cm de margem e ${Math.round(desperdicioPct*100)}% de desperdício)</em></p>`;
+  }
+
+  const res = document.getElementById('resultado');
+  res.style.display = 'block';
+  res.innerHTML = `
+    ${areaInfoTxt}
+    <p><strong>Peso estimado:</strong> ${peso.toFixed(2)} kg</p>
     <p><strong>Custo total:</strong> €${custo.toFixed(2)}</p>
     <p><strong>Preço s/ IVA:</strong> €${base.toFixed(2)}</p>
-    ${aplicaIVA?`<p><strong>IVA (23 %):</strong> €${iva.toFixed(2)}</p>`:`<p><em>Isento de IVA — Art. 53.º</em></p>`}
+    ${aplicaIVA ? `<p><strong>IVA (23 %):</strong> €${iva.toFixed(2)}</p>` : `<p><em>Isento de IVA — Art. 53.º</em></p>`}
     <p><strong>Envio:</strong> €${portes.toFixed(2)}</p>
     <p class="highlight"><strong>Preço final:</strong> €${total.toFixed(2)}</p>
     <p><strong>Lucro:</strong> €${lucro.toFixed(2)} (${margem.toFixed(1)} %)</p>`;
 }
-    </script>
+</script>
 </body>
-
 </html>
